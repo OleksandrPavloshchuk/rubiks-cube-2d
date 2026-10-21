@@ -1,5 +1,7 @@
 package temp.rubiks.cube;
 
+import temp.rubiks.cube.ui.MainWindow;
+
 import javax.swing.*;
 
 public class Application {

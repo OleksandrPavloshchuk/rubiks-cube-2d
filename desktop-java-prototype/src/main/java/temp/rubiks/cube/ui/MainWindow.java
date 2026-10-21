@@ -1,12 +1,12 @@
-package temp.rubiks.cube;
+package temp.rubiks.cube.ui;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
 
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 640;
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 1000;
 
     private final JButton buttonRefresh = new JButton("Refresh");
     private final JButton button1 = new JButton("1");
@@ -14,7 +14,7 @@ public class MainWindow extends JFrame {
     private final JButton button3 = new JButton("3");
     private final JButton button4 = new JButton("4");
 
-    private final Canvas canvas = new Canvas();
+    private final temp.rubiks.cube.ui.Canvas canvas = new Canvas();
 
     public MainWindow() {
         super("Rubiks Cube 2D (prototype)");
