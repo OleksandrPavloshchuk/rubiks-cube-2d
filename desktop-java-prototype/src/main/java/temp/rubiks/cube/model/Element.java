@@ -18,6 +18,10 @@ public class Element {
         return position;
     }
 
+    public void setPosition(ElementPosition position) {
+        this.position = position;
+    }
+
     @Override
     public String toString() {
         return "[" + position + "]=" + colorIndex;

@@ -1,6 +1,9 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.model.ColorIndex;
 import temp.rubiks.cube.model.Cube;
+import temp.rubiks.cube.model.Element;
+import temp.rubiks.cube.model.ElementPosition;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +11,17 @@ import java.awt.image.BufferedImage;
 
 public class Canvas extends JPanel {
 
+    private final int RADIUS = 240;
+    private final int POINT_RADIUS = 5;
+
     private final Cube cube = new Cube();
 
     private BufferedImage image;
 
-    private final Drawable projection = new CubeProjection(
-            new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2),
-            240
-    );
+    private final ImageCoordinatesHolder imageCoordinatesHolder =
+            new ImageCoordinatesHolder(getCenter(), RADIUS, 20, cube.getElements());
+
+    private final Drawable projection = new CubeProjection(RADIUS, imageCoordinatesHolder);
 
     public Canvas() {
         redrawContent();
@@ -58,10 +64,38 @@ public class Canvas extends JPanel {
 
             projection.draw(g2);
 
+            drawPoints(g2);
+
         } finally {
             g2.dispose();
         }
 
+    }
+
+    private void drawPoints(Graphics2D g2) {
+        imageCoordinatesHolder.getPoints().keySet().forEach(pos -> drawPoint(g2, pos));
+    }
+
+    private void drawPoint(Graphics2D g2, ElementPosition pos) {
+        final Element elem = cube.find(pos);
+        g2.setColor(getColor(elem.getColorIndex()));
+        final Point p = imageCoordinatesHolder.getPoints().get(pos);
+        g2.fillOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
+    }
+
+    private static Point getCenter() {
+        return new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2);
+    }
+
+    private static Color getColor(ColorIndex idx) {
+        return switch (idx) {
+            case C1 -> Color.blue;
+            case C2 -> Color.green;
+            case C3 -> Color.magenta;
+            case C4 -> Color.cyan;
+            case C5 -> Color.red;
+            case C6 -> Color.yellow;
+        };
     }
 
 

@@ -6,25 +6,29 @@ import java.util.Map;
 public class CubeProjection implements Drawable {
 
     private final Map<Integer, SideProjection> sides;
+    private final ImageCoordinatesHolder coordinatesHolder;
 
-    public CubeProjection(Point center, int sideRadius) {
+    public CubeProjection(int sideRadius, ImageCoordinatesHolder coordinatesHolder) {
+        this.coordinatesHolder = coordinatesHolder;
         int yOffset = (int) (Math.sqrt(3) * sideRadius / 2) - sideRadius / 2;
         final int TEXT_OFFSET = 20;
+
+        final Point c1 = coordinatesHolder.getCenter1();
+        final Point c2 = coordinatesHolder.getCenter2();
+        final Point c3 = coordinatesHolder.getCenter3();
+
         sides = Map.of(
                 1,
-                new SideProjection(1,
-                        new Point(center.x, center.y - sideRadius / 2),
-                        new Point(center.x, center.y - sideRadius / 2 - TEXT_OFFSET)
+                new SideProjection(1, c1,
+                        new Point(c1.x, c1.y - sideRadius / 2 - TEXT_OFFSET)
                         , sideRadius),
                 2,
-                new SideProjection(2,
-                        new Point(center.x - sideRadius / 2, center.y + yOffset),
-                        new Point(center.x - sideRadius / 2 - TEXT_OFFSET, center.y + yOffset + TEXT_OFFSET),
+                new SideProjection(2, c2,
+                        new Point(c2.x - sideRadius / 2 - TEXT_OFFSET, c2.y + yOffset + TEXT_OFFSET),
                         sideRadius),
                 3,
-                new SideProjection(3,
-                        new Point(center.x + sideRadius / 2, center.y + yOffset),
-                        new Point(center.x + sideRadius / 2 + TEXT_OFFSET, center.y + yOffset + TEXT_OFFSET),
+                new SideProjection(3, c3,
+                        new Point(c3.x + sideRadius / 2 + TEXT_OFFSET, c3.y + yOffset + TEXT_OFFSET),
                         sideRadius)
         );
     }

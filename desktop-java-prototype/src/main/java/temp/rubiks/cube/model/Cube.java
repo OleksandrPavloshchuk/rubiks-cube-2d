@@ -19,10 +19,11 @@ public class Cube {
         return elements;
     }
 
-    public Optional<Element> find(ElementPosition position) {
+    public Element find(ElementPosition position) {
         return elements.stream()
                 .filter(e -> e.getPosition().equals(position))
-                .findAny();
+                .findAny()
+                .orElse(null);
     }
 
     private void init() {
