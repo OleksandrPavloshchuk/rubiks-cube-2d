@@ -1,7 +1,9 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.model.AxisIndex;
 import temp.rubiks.cube.model.ColorIndex;
 import temp.rubiks.cube.model.ElementPosition;
+import temp.rubiks.cube.model.Engine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +13,16 @@ public class Canvas extends JPanel {
 
     private final int RADIUS = 240;
     private final int RADIUS_STEP = 25;
-    private final int POINT_RADIUS = 10;
+    private final int POINT_RADIUS = 12;
 
     private BufferedImage image;
 
     private final ImageCoordinatesHolder imageCoordinatesHolder =
             new ImageCoordinatesHolder(getCenter(), RADIUS, RADIUS_STEP);
 
-    private final Drawable projection = new CubeProjection(RADIUS, imageCoordinatesHolder);
+    private final Engine engine = new Engine(ImageCoordinatesHolder.STEPS);
+
+    private final Drawable projection = new CubeProjection(imageCoordinatesHolder);
 
     public Canvas() {
         redrawContent();
@@ -32,22 +36,17 @@ public class Canvas extends JPanel {
     }
 
     public void refresh() {
-        JOptionPane.showMessageDialog(this, "TODO refresh");
+        imageCoordinatesHolder.reset();
         redrawContent();
     }
 
-    public void rotate1() {
-        JOptionPane.showMessageDialog(this, "TODO rotate 1");
+    public void rotateLeft(AxisIndex axis, int radius) {
+        JOptionPane.showMessageDialog(this, "TODO rotate Left: " + axis + ", " + radius );
         redrawContent();
     }
 
-    public void rotate2() {
-        JOptionPane.showMessageDialog(this, "TODO rotate 2");
-        redrawContent();
-    }
-
-    public void rotate3() {
-        JOptionPane.showMessageDialog(this, "TODO rotate 3");
+    public void rotateRight(AxisIndex axis, int radius) {
+        JOptionPane.showMessageDialog(this, "TODO rotate Right: " + axis + ", " + radius );
         redrawContent();
     }
 
@@ -74,10 +73,12 @@ public class Canvas extends JPanel {
     }
 
     private void drawPoint(Graphics2D g2, ElementPosition pos) {
-        final ColorIndex colorIndex = imageCoordinatesHolder.getColors().get(pos);
+        final ColorIndex colorIndex = engine.getColors().get(pos);
         g2.setColor(getColor(colorIndex));
         final Point p = imageCoordinatesHolder.getPoints().get(pos);
         g2.fillOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
+        g2.setColor(Color.gray);
+        g2.drawOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
     }
 
     private static Point getCenter() {

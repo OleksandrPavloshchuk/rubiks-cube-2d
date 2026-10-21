@@ -1,5 +1,7 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.model.Engine;
+
 import java.awt.*;
 import java.util.Map;
 
@@ -7,7 +9,7 @@ public class CubeProjection implements Drawable {
 
     private final Map<Integer, SideProjection> sides;
 
-    public CubeProjection(int sideRadius, ImageCoordinatesHolder coordinatesHolder) {
+    public CubeProjection(ImageCoordinatesHolder coordinatesHolder) {
         final int TEXT_OFFSET = 20;
 
         final Point c1 = coordinatesHolder.getCenter1();

@@ -1,5 +1,7 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.model.Engine;
+
 import java.awt.*;
 
 public class SideProjection implements Drawable {
@@ -10,7 +12,7 @@ public class SideProjection implements Drawable {
     private final Point textPoint;
     private final int index;
 
-    private ImageCoordinatesHolder coordinatesHolder;
+    private final ImageCoordinatesHolder coordinatesHolder;
 
     public SideProjection(int index, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
         this.index = index;
