@@ -1,0 +1,15 @@
+**/build/
+!**/src/**/build/
+
+# Cache of project
+.gradletasknamecache
+
+# IDEA generated files
+.idea/
+
+# Gradle related files
+gradlew
+gradlew.bat
+.gradle/
+gradle/
+
