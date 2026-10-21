@@ -8,7 +8,7 @@ public class Canvas extends JPanel {
 
     private BufferedImage image;
 
-    private Drawable projection = new CubeProjection(
+    private final Drawable projection = new CubeProjection(
             new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2),
             240
     );
@@ -41,11 +41,6 @@ public class Canvas extends JPanel {
 
     public void rotate3() {
         JOptionPane.showMessageDialog(this, "TODO rotate 3");
-        redrawContent();
-    }
-
-    public void rotate4() {
-        JOptionPane.showMessageDialog(this, "TODO rotate 4");
         redrawContent();
     }
 

@@ -12,7 +12,6 @@ public class MainWindow extends JFrame {
     private final JButton button1 = new JButton("1");
     private final JButton button2 = new JButton("2");
     private final JButton button3 = new JButton("3");
-    private final JButton button4 = new JButton("4");
 
     private final temp.rubiks.cube.ui.Canvas canvas = new Canvas();
 
@@ -25,7 +24,6 @@ public class MainWindow extends JFrame {
         button1.addActionListener(event -> canvas.rotate1());
         button2.addActionListener(event -> canvas.rotate2());
         button3.addActionListener(event -> canvas.rotate3());
-        button4.addActionListener(event -> canvas.rotate4());
 
         JRootPane rootPanel = getRootPane();
         rootPanel.setLayout(new BorderLayout());
@@ -34,7 +32,6 @@ public class MainWindow extends JFrame {
         controlPanel.add(button1);
         controlPanel.add(button2);
         controlPanel.add(button3);
-        controlPanel.add(button4);
         rootPanel.add(controlPanel, BorderLayout.NORTH);
 
         rootPanel.add(canvas, BorderLayout.CENTER);
