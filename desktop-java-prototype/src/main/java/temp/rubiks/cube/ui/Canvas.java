@@ -1,10 +1,14 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.model.Cube;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Canvas extends JPanel {
+
+    private final Cube cube = new Cube();
 
     private BufferedImage image;
 
@@ -49,7 +53,7 @@ public class Canvas extends JPanel {
                 BufferedImage.TYPE_INT_RGB);
         final Graphics2D g2 = image.createGraphics();
         try {
-            g2.setColor(Color.lightGray);
+            g2.setColor(Color.white);
             g2.fillRect(0, 0, image.getWidth(), image.getHeight());
 
             projection.draw(g2);

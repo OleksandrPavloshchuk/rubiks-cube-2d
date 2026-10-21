@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class SideProjection implements Drawable {
 
-    private static final int COUNT = 3;
+    private static final int COUNT = 1;
     private static final int STEP = 30;
     private static final Stroke STROKE = new BasicStroke(1);
 
@@ -26,7 +26,7 @@ public class SideProjection implements Drawable {
     }
 
     private void drawCircle(Graphics2D g2, Point center, int radius) {
-        g2.setColor(Color.white);
+        g2.setColor(Color.lightGray);
         g2.setStroke(STROKE);
 
         for( int i=0; i<COUNT; i++ ) {
