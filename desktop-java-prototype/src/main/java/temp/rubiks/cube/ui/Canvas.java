@@ -1,8 +1,6 @@
 package temp.rubiks.cube.ui;
 
 import temp.rubiks.cube.model.ColorIndex;
-import temp.rubiks.cube.model.Cube;
-import temp.rubiks.cube.model.Element;
 import temp.rubiks.cube.model.ElementPosition;
 
 import javax.swing.*;
@@ -12,14 +10,13 @@ import java.awt.image.BufferedImage;
 public class Canvas extends JPanel {
 
     private final int RADIUS = 240;
-    private final int POINT_RADIUS = 5;
-
-    private final Cube cube = new Cube();
+    private final int RADIUS_STEP = 25;
+    private final int POINT_RADIUS = 10;
 
     private BufferedImage image;
 
     private final ImageCoordinatesHolder imageCoordinatesHolder =
-            new ImageCoordinatesHolder(getCenter(), RADIUS, 20, cube.getElements());
+            new ImageCoordinatesHolder(getCenter(), RADIUS, RADIUS_STEP);
 
     private final Drawable projection = new CubeProjection(RADIUS, imageCoordinatesHolder);
 
@@ -77,8 +74,8 @@ public class Canvas extends JPanel {
     }
 
     private void drawPoint(Graphics2D g2, ElementPosition pos) {
-        final Element elem = cube.find(pos);
-        g2.setColor(getColor(elem.getColorIndex()));
+        final ColorIndex colorIndex = imageCoordinatesHolder.getColors().get(pos);
+        g2.setColor(getColor(colorIndex));
         final Point p = imageCoordinatesHolder.getPoints().get(pos);
         g2.fillOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
     }

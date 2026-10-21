@@ -1,31 +1,30 @@
 package temp.rubiks.cube.ui;
 
-import temp.rubiks.cube.model.Element;
+import temp.rubiks.cube.model.ColorIndex;
 import temp.rubiks.cube.model.ElementPosition;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static temp.rubiks.cube.model.AxisIndex.*;
-import static temp.rubiks.cube.model.RadiusIndex.*;
 
 public class ImageCoordinatesHolder {
+
+    public static final int STEPS = 3;
 
     private static final double SIN60 = Math.sqrt(3) / 2.0;
 
     private final Point center;
     private final int radius;
     private final int radiusStep;
-    private final List<Element> elements;
 
     private Map<ElementPosition, Point> points = new HashMap<>();
+    private Map<ElementPosition, ColorIndex> colors = new HashMap<>();
 
-    public ImageCoordinatesHolder(Point center, int radius, int radiusStep, List<Element> elements) {
+    public ImageCoordinatesHolder(Point center, int radius, int radiusStep) {
         this.center = center;
         this.radius = radius;
-        this.elements = elements;
         this.radiusStep = radiusStep;
 
         init();
@@ -33,6 +32,18 @@ public class ImageCoordinatesHolder {
 
     public Map<ElementPosition, Point> getPoints() {
         return points;
+    }
+
+    public Map<ElementPosition, ColorIndex> getColors() {
+        return colors;
+    }
+
+    public int getRadiusStep() {
+        return radiusStep;
+    }
+
+    public int getRadius() {
+        return radius;
     }
 
     public Point getCenter1() {
@@ -54,15 +65,44 @@ public class ImageCoordinatesHolder {
         final Point c2 = getCenter2();
         final Point c3 = getCenter3();
 
-        Intersections i = getIntersections(c1, radius, c2, radius);
-        points.put( new ElementPosition(A1, A2, R1), i.p1);
-        points.put( new ElementPosition(A2, A1, R1), i.p2);
-        i = getIntersections(c2, radius, c3, radius);
-        points.put( new ElementPosition(A2, A3, R1), i.p1);
-        points.put( new ElementPosition(A3, A2, R1), i.p2);
-        i = getIntersections(c3, radius, c1, radius);
-        points.put( new ElementPosition(A3, A1, R1), i.p1);
-        points.put( new ElementPosition(A1, A3, R1), i.p2);
+        for( int i=0; i<STEPS; i++ ) {
+            final int r1 = radius - radiusStep * i;
+            for( int j=0; j<STEPS; j++ ) {
+                final int r2 = radius - radiusStep * j;
+
+                Intersections intersections = getIntersections(c1, r1, c2, r2);
+
+                ElementPosition pos = new ElementPosition(A1, A2, i, j);
+                points.put(pos, intersections.p1);
+                colors.put(pos, ColorIndex.C1);
+
+                pos = new ElementPosition(A2, A1, i, j);
+                points.put(pos, intersections.p2);
+                colors.put(pos, ColorIndex.C2);
+
+                intersections = getIntersections(c2, r1, c3, r2);
+
+                pos = new ElementPosition(A2, A3, i, j);
+                points.put(pos, intersections.p1);
+                colors.put(pos, ColorIndex.C3);
+
+                pos = new ElementPosition(A3, A2, i, j);
+                points.put(pos, intersections.p2);
+                colors.put(pos, ColorIndex.C4);
+
+                intersections = getIntersections(c3, r1, c1, r2);
+
+                pos = new ElementPosition(A3, A1, i, j);
+                points.put(pos, intersections.p1);
+                colors.put(pos, ColorIndex.C5);
+
+                pos = new ElementPosition(A1, A3, i, j);
+                points.put(pos, intersections.p2);
+                colors.put(pos, ColorIndex.C6);
+
+            }
+        }
+
     }
 
     private Intersections getIntersections(Point c1, double r1, Point c2, double r2) {
