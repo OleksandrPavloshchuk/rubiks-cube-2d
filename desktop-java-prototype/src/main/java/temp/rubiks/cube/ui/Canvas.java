@@ -37,16 +37,17 @@ public class Canvas extends JPanel {
 
     public void refresh() {
         imageCoordinatesHolder.reset();
+        engine.reset();
         redrawContent();
     }
 
     public void rotateLeft(AxisIndex axis, int radius) {
-        JOptionPane.showMessageDialog(this, "TODO rotate Left: " + axis + ", " + radius );
+        engine.rotateLeft(axis, radius);
         redrawContent();
     }
 
     public void rotateRight(AxisIndex axis, int radius) {
-        JOptionPane.showMessageDialog(this, "TODO rotate Right: " + axis + ", " + radius );
+        engine.rotateRight(axis, radius);
         redrawContent();
     }
 
@@ -65,7 +66,7 @@ public class Canvas extends JPanel {
         } finally {
             g2.dispose();
         }
-
+        repaint();
     }
 
     private void drawPoints(Graphics2D g2) {
