@@ -1,30 +1,44 @@
 package temp.rubiks.cube.engine;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 public class Assembly {
 
-    private final List<Cube> cubes = new ArrayList<>();
+    private final Map<CubePosition, Cube> cubes = new HashMap<>();
 
     public Assembly() {
         init();
     }
 
-
-    private Cube getCube(CubePosition position) {
-        return cubes.stream()
-                .filter(c -> c.getPosition().equals(position))
-                .findAny()
-                .orElse(null);
+    public List<Cube> getLayerX(int x) {
+        return getLayer(pos -> pos.x() == x);
     }
 
+    public List<Cube> getLayerY(int y) {
+        return getLayer(pos -> pos.y() == y);
+    }
+
+    public List<Cube> getLayerZ(int z) {
+        return getLayer(pos -> pos.z() == z);
+    }
+
+    private List<Cube> getLayer(Predicate<CubePosition> positionPredicate) {
+        final List<Cube> result = cubes.values().stream()
+                .filter(c -> positionPredicate.test(c.getPosition()))
+                .toList();
+        result.forEach( cube -> cubes.remove(cube.getPosition()));
+        return result;
+    }
 
     private void init() {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
-                    cubes.add(new Cube(new CubePosition(x, y, z)));
+                    final CubePosition pos = new CubePosition(x, y, z);
+                    cubes.put(pos, new Cube(pos));
                 }
             }
         }
