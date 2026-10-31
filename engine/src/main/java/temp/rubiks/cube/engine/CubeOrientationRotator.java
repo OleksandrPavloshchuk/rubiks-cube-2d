@@ -1,6 +1,6 @@
 package temp.rubiks.cube.engine;
 
-public class CubeRotator {
+public class CubeOrientationRotator {
 
     public static CubeOrientation leftX(CubeOrientation src) {
         return new CubeOrientation(src.x0(), src.z1(), src.y0(), src.x1(), src.z0(), src.y1());
