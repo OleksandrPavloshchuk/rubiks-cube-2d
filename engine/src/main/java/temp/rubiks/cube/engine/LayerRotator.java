@@ -1,16 +1,83 @@
 package temp.rubiks.cube.engine;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class LayerRotator {
+
     public List<Cube> rotateLeftX(List<Cube> src) {
-        final List<Cube> result = new ArrayList<>();
-
-        // TODO
-
-
-        return result;
+        return rotateX(src, CubeOrientationRotator::leftX, CubePositionRotator::left);
     }
 
+    public List<Cube> rotateRightX(List<Cube> src) {
+        return rotateX(src, CubeOrientationRotator::rightX, CubePositionRotator::right);
+    }
+
+    public List<Cube> rotateLeftY(List<Cube> src) {
+        return rotateY(src, CubeOrientationRotator::leftY, CubePositionRotator::left);
+    }
+
+    public List<Cube> rotateRightY(List<Cube> src) {
+        return rotateY(src, CubeOrientationRotator::rightY, CubePositionRotator::right);
+    }
+
+    public List<Cube> rotateLeftZ(List<Cube> src) {
+        return rotateZ(src, CubeOrientationRotator::leftZ, CubePositionRotator::left);
+    }
+
+    public List<Cube> rotateRightZ(List<Cube> src) {
+        return rotateZ(src, CubeOrientationRotator::rightZ, CubePositionRotator::right);
+    }
+
+    private List<Cube> rotateX(
+            List<Cube> src,
+            Function<CubeOrientation, CubeOrientation> orientationTransformer,
+            BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
+        return src.stream()
+                .map(cube -> {
+                    final CubePosition pos = cube.getPosition();
+                    final int x = pos.x();
+                    final CubeOrientation newOrientation = orientationTransformer.apply(cube.getOrientation());
+                    final CubePositionRotator.Pair newPos = posTransformer.apply(pos.y(), pos.z());
+                    cube.setOrientation(newOrientation);
+                    cube.setPosition(new CubePosition(x, newPos.x(), newPos.y()));
+                    return cube;
+                })
+                .toList();
+    }
+
+    private List<Cube> rotateY(
+            List<Cube> src,
+            Function<CubeOrientation, CubeOrientation> orientationTransformer,
+            BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
+        return src.stream()
+                .map(cube -> {
+                    final CubePosition pos = cube.getPosition();
+                    final int y = pos.y();
+                    final CubeOrientation newOrientation = orientationTransformer.apply(cube.getOrientation());
+                    final CubePositionRotator.Pair newPos = posTransformer.apply(pos.x(), pos.z());
+                    cube.setOrientation(newOrientation);
+                    cube.setPosition(new CubePosition(newPos.x(), y, newPos.y()));
+                    return cube;
+                })
+                .toList();
+    }
+
+    private List<Cube> rotateZ(
+            List<Cube> src,
+            Function<CubeOrientation, CubeOrientation> orientationTransformer,
+            BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
+        return src.stream()
+                .map(cube -> {
+                    final CubePosition pos = cube.getPosition();
+                    final int z = pos.z();
+                    final CubeOrientation newOrientation = orientationTransformer.apply(cube.getOrientation());
+                    final CubePositionRotator.Pair newPos = posTransformer.apply(pos.x(), pos.y());
+                    cube.setOrientation(newOrientation);
+                    cube.setPosition(new CubePosition(newPos.x(), newPos.y(), z));
+                    return cube;
+                })
+                .toList();
+    }
 }
