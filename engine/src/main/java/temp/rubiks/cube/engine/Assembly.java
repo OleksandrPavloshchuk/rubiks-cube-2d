@@ -25,6 +25,10 @@ public class Assembly {
         return getLayer(pos -> pos.z() == z);
     }
 
+    public void putCube(Cube cube) {
+        cubes.put(cube.getPosition(), cube);
+    }
+
     private List<Cube> getLayer(Predicate<CubePosition> positionPredicate) {
         final List<Cube> result = cubes.values().stream()
                 .filter(c -> positionPredicate.test(c.getPosition()))
@@ -37,8 +41,7 @@ public class Assembly {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
-                    final CubePosition pos = new CubePosition(x, y, z);
-                    cubes.put(pos, new Cube(pos));
+                    putCube(new Cube(new CubePosition(x, y, z)));
                 }
             }
         }
