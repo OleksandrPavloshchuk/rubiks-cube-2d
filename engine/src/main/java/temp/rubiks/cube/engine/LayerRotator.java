@@ -6,31 +6,31 @@ import java.util.function.Function;
 
 public class LayerRotator {
 
-    public List<Cube> rotateLeftX(List<Cube> src) {
+    public static List<Cube> rotateLeftX(List<Cube> src) {
         return rotateX(src, CubeOrientationRotator::leftX, CubePositionRotator::left);
     }
 
-    public List<Cube> rotateRightX(List<Cube> src) {
+    public static List<Cube> rotateRightX(List<Cube> src) {
         return rotateX(src, CubeOrientationRotator::rightX, CubePositionRotator::right);
     }
 
-    public List<Cube> rotateLeftY(List<Cube> src) {
+    public static List<Cube> rotateLeftY(List<Cube> src) {
         return rotateY(src, CubeOrientationRotator::leftY, CubePositionRotator::left);
     }
 
-    public List<Cube> rotateRightY(List<Cube> src) {
+    public static List<Cube> rotateRightY(List<Cube> src) {
         return rotateY(src, CubeOrientationRotator::rightY, CubePositionRotator::right);
     }
 
-    public List<Cube> rotateLeftZ(List<Cube> src) {
+    public static List<Cube> rotateLeftZ(List<Cube> src) {
         return rotateZ(src, CubeOrientationRotator::leftZ, CubePositionRotator::left);
     }
 
-    public List<Cube> rotateRightZ(List<Cube> src) {
+    public static List<Cube> rotateRightZ(List<Cube> src) {
         return rotateZ(src, CubeOrientationRotator::rightZ, CubePositionRotator::right);
     }
 
-    private List<Cube> rotateX(
+    private static List<Cube> rotateX(
             List<Cube> src,
             Function<CubeOrientation, CubeOrientation> orientationTransformer,
             BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
@@ -47,7 +47,7 @@ public class LayerRotator {
                 .toList();
     }
 
-    private List<Cube> rotateY(
+    private static List<Cube> rotateY(
             List<Cube> src,
             Function<CubeOrientation, CubeOrientation> orientationTransformer,
             BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
@@ -64,7 +64,7 @@ public class LayerRotator {
                 .toList();
     }
 
-    private List<Cube> rotateZ(
+    private static List<Cube> rotateZ(
             List<Cube> src,
             Function<CubeOrientation, CubeOrientation> orientationTransformer,
             BiFunction<Integer, Integer, CubePositionRotator.Pair> posTransformer) {
