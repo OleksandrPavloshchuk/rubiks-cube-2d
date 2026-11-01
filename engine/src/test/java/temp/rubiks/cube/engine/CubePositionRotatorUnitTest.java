@@ -3,6 +3,7 @@ package temp.rubiks.cube.engine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import temp.rubiks.cube.engine.rotators.CubePositionRotator;
 
 public class CubePositionRotatorUnitTest {
 

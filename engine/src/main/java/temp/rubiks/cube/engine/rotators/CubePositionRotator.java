@@ -1,4 +1,4 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.rotators;
 
 // TODO write unit test for this class
 public class CubePositionRotator {

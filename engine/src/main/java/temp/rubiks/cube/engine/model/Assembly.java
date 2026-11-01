@@ -1,4 +1,4 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.model;
 
 import java.util.HashMap;
 import java.util.List;

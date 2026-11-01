@@ -2,6 +2,8 @@ package temp.rubiks.cube.engine;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import temp.rubiks.cube.engine.model.CubeOrientation;
+import temp.rubiks.cube.engine.rotators.CubeOrientationRotator;
 
 import java.util.function.Function;
 

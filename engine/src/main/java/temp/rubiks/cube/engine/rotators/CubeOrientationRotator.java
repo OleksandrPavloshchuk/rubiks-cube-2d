@@ -1,4 +1,6 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.rotators;
+
+import temp.rubiks.cube.engine.model.CubeOrientation;
 
 public class CubeOrientationRotator {
 

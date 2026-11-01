@@ -1,6 +1,7 @@
 package temp.rubiks.cube.engine;
 
 import org.junit.jupiter.api.Test;
+import temp.rubiks.cube.engine.model.Assembly;
 
 public class AssemblyRotatorUnitTest {
 
