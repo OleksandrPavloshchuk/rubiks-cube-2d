@@ -28,8 +28,4 @@ public class Cube {
         this.orientation = orientation;
     }
 
-    @Override
-    public String toString() {
-        return "P: " + position + ", O: " + orientation;
-    }
 }

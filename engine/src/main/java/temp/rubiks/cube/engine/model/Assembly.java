@@ -13,6 +13,22 @@ public class Assembly {
         init();
     }
 
+    public List<Cube> getLayerForUpdateX(int x) {
+        return getLayerForUpdate(pos -> pos.x() == x);
+    }
+
+    public List<Cube> getLayerForUpdateY(int y) {
+        return getLayerForUpdate(pos -> pos.y() == y);
+    }
+
+    public List<Cube> getLayerForUpdateZ(int z) {
+        return getLayerForUpdate(pos -> pos.z() == z);
+    }
+
+    public void putCube(Cube cube) {
+        cubes.put(cube.getPosition(), cube);
+    }
+
     public List<Cube> getLayerX(int x) {
         return getLayer(pos -> pos.x() == x);
     }
@@ -25,15 +41,15 @@ public class Assembly {
         return getLayer(pos -> pos.z() == z);
     }
 
-    public void putCube(Cube cube) {
-        cubes.put(cube.getPosition(), cube);
-    }
-
     private List<Cube> getLayer(Predicate<CubePosition> positionPredicate) {
-        final List<Cube> result = cubes.values().stream()
+        return cubes.values().stream()
                 .filter(c -> positionPredicate.test(c.getPosition()))
                 .toList();
-        result.forEach( cube -> cubes.remove(cube.getPosition()));
+    }
+
+    private List<Cube> getLayerForUpdate(Predicate<CubePosition> positionPredicate) {
+        final List<Cube> result = getLayer(positionPredicate);
+        result.forEach(cube -> cubes.remove(cube.getPosition()));
         return result;
     }
 

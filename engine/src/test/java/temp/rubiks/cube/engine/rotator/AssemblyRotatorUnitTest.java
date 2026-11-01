@@ -1,4 +1,4 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.rotator;
 
 import org.junit.jupiter.api.Test;
 import temp.rubiks.cube.engine.model.Assembly;

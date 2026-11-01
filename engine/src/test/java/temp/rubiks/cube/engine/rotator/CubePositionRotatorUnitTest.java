@@ -1,4 +1,4 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.rotator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

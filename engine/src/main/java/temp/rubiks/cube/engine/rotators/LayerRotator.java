@@ -1,10 +1,8 @@
-package temp.rubiks.cube.engine;
+package temp.rubiks.cube.engine.rotators;
 
 import temp.rubiks.cube.engine.model.Cube;
 import temp.rubiks.cube.engine.model.CubeOrientation;
 import temp.rubiks.cube.engine.model.CubePosition;
-import temp.rubiks.cube.engine.rotators.CubeOrientationRotator;
-import temp.rubiks.cube.engine.rotators.CubePositionRotator;
 
 import java.util.List;
 import java.util.function.BiFunction;
