@@ -18,15 +18,15 @@ public class CubeProjection implements Drawable {
 
         sides = Map.of(
                 1,
-                new SideProjection(1, c1,
+                new SideProjection("Z", c1,
                         new Point(c1.x, c1.y - TEXT_OFFSET),
                         coordinatesHolder),
                 2,
-                new SideProjection(2, c2,
+                new SideProjection( "Y", c2,
                         new Point(c2.x - TEXT_OFFSET, c2.y + TEXT_OFFSET),
                         coordinatesHolder),
                 3,
-                new SideProjection(3, c3,
+                new SideProjection("X", c3,
                         new Point(c3.x + TEXT_OFFSET, c3.y + TEXT_OFFSET),
                         coordinatesHolder)
         );

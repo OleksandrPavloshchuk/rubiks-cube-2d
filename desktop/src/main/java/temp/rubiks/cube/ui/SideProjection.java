@@ -10,12 +10,12 @@ public class SideProjection implements Drawable {
 
     private final Point center;
     private final Point textPoint;
-    private final int index;
+    private final String label;
 
     private final ImageCoordinatesHolder coordinatesHolder;
 
-    public SideProjection(int index, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
-        this.index = index;
+    public SideProjection(String label, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
+        this.label = label;
         this.center = center;
         this.textPoint = textPoint;
         this.coordinatesHolder = coordinatesHolder;
@@ -31,10 +31,12 @@ public class SideProjection implements Drawable {
         g2.setStroke(STROKE);
 
         for( int i=0; i<ImageCoordinatesHolder.STEPS; i++ ) {
-            int r = coordinatesHolder.getRadius() - i * coordinatesHolder.getRadiusStep();
-            g2.drawOval(center.x - r, center.y - r, r * 2, r * 2);
+            if (i!=1) {
+                int r = coordinatesHolder.getRadius() - i * coordinatesHolder.getRadiusStep();
+                g2.drawOval(center.x - r, center.y - r, r * 2, r * 2);
+            }
         }
 
-        g2.drawString( Integer.toString(index), textPoint.x, textPoint.y);
+        g2.drawString( label, textPoint.x, textPoint.y);
     }
 }
