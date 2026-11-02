@@ -88,6 +88,7 @@ public class Canvas extends JPanel {
         return new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2);
     }
 
+    @Deprecated
     private static Color getColor(ColorIndex idx) {
         return switch (idx) {
             case C1 -> Color.blue;
@@ -99,5 +100,15 @@ public class Canvas extends JPanel {
         };
     }
 
+    private static Color getColor(int idx) {
+        return switch (idx) {
+            case 0 -> Color.blue;
+            case 1 -> Color.green;
+            case 2 -> Color.magenta;
+            case 3 -> Color.cyan;
+            case 4 -> Color.red;
+            default -> Color.yellow;
+        };
+    }
 
 }
