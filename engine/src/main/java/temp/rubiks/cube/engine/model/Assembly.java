@@ -10,7 +10,18 @@ public class Assembly {
     private final Map<CubePosition, Cube> cubes = new HashMap<>();
 
     public Assembly() {
-        init();
+        reset();
+    }
+
+    public void reset() {
+        cubes.clear();
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    putCube(new Cube(new CubePosition(x, y, z)));
+                }
+            }
+        }
     }
 
     public List<Cube> getLayerForUpdateX(int x) {
@@ -51,16 +62,6 @@ public class Assembly {
         final List<Cube> result = getLayer(positionPredicate);
         result.forEach(cube -> cubes.remove(cube.getPosition()));
         return result;
-    }
-
-    private void init() {
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
-                    putCube(new Cube(new CubePosition(x, y, z)));
-                }
-            }
-        }
     }
 
     @Override

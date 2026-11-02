@@ -20,6 +20,8 @@ public class Canvas extends JPanel {
     private final ImageCoordinatesHolder imageCoordinatesHolder =
             new ImageCoordinatesHolder(getCenter(), RADIUS, RADIUS_STEP);
 
+    // TODO substitute it by the new engine from separate module
+    @Deprecated
     private final Engine engine = new Engine(ImageCoordinatesHolder.STEPS);
 
     private final Drawable projection = new CubeProjection(imageCoordinatesHolder);
