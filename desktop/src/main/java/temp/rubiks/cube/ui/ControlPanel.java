@@ -10,21 +10,54 @@ public class ControlPanel extends JPanel {
     public ControlPanel(Canvas canvas) {
         setLayout(new GridLayout(AxisIndex.values().length, 2 * ImageCoordinatesHolder.STEPS));
 
-        for (final AxisIndex axisIndex : AxisIndex.values()) {
-            for( int i=0; i<ImageCoordinatesHolder.STEPS; i++ ) {
-                if (i != 1) {
-                    final int c = i;
+        JButton button = new JButton("X" + "left" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateLeftX(-1));
+        add(button);
 
-                    final JButton buttonLeft = new JButton("⬅" + axisIndex + ":" + c);
-                    buttonLeft.addActionListener(event -> canvas.rotateLeft(axisIndex, c));
-                    add(buttonLeft);
+        button = new JButton("X" + "right" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateRightX(-1));
+        add(button);
 
-                    final JButton buttonRight = new JButton(axisIndex + ":" + c + "➡");
-                    buttonRight.addActionListener(event -> canvas.rotateRight(axisIndex, c));
-                    add(buttonRight);
-                }
-            }
-        }
+        button = new JButton("X" + " " + "letf" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateLeftX(1));
+        add(button);
+
+        button = new JButton("X" + " " + "right" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateRightX(1));
+        add(button);
+
+        button = new JButton("Y" + " " + "left" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateLeftY(-1));
+        add(button);
+
+        button = new JButton("Y" + " " + "right" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateRightY(-1));
+        add(button);
+
+        button = new JButton("Y" + " " + "left" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateLeftY(1));
+        add(button);
+
+        button = new JButton("Y" + " " + "right" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateRightY(1));
+        add(button);
+
+        button = new JButton("Z" + " " + "left" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateLeftZ(-1));
+        add(button);
+
+        button = new JButton("Z" + " " + "right" + ":" + -1);
+        button.addActionListener(event -> canvas.rotateRightZ(-1));
+        add(button);
+
+        button = new JButton("Z" + " " + "left" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateLeftZ(1));
+        add(button);
+
+        button = new JButton("Z" + "right" + ":" + 1);
+        button.addActionListener(event -> canvas.rotateRightZ(1));
+        add(button);
+
     }
 
 }

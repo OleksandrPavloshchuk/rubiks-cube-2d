@@ -1,13 +1,20 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.engine.model.Assembly;
+import temp.rubiks.cube.engine.model.Cube;
+import temp.rubiks.cube.engine.rotators.AssemblyRotator;
 import temp.rubiks.cube.model.AxisIndex;
 import temp.rubiks.cube.model.ColorIndex;
 import temp.rubiks.cube.model.ElementPosition;
 import temp.rubiks.cube.model.Engine;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Canvas extends JPanel {
 
@@ -22,7 +29,9 @@ public class Canvas extends JPanel {
 
     // TODO substitute it by the new engine from separate module
     @Deprecated
-    private final Engine engine = new Engine(ImageCoordinatesHolder.STEPS);
+    private final Engine engine_OLD = new Engine(ImageCoordinatesHolder.STEPS);
+
+    private final Assembly assembly = new Assembly();
 
     private final Drawable projection = new CubeProjection(imageCoordinatesHolder);
 
@@ -39,17 +48,57 @@ public class Canvas extends JPanel {
 
     public void refresh() {
         imageCoordinatesHolder.reset();
-        engine.reset();
+        assembly.reset();
         redrawContent();
     }
 
+    public void rotateLeftX(int x) {
+        AssemblyRotator.rotateLeftX(assembly, x);
+        final List<Cube> cubes = assembly.getLayerX(x);
+        // TODO
+
+    }
+
+    public void rotateRightX(int x) {
+        AssemblyRotator.rotateRightX(assembly, x);
+        final List<Cube> cubes = assembly.getLayerX(x);
+        // TODO
+
+    }
+
+    public void rotateLeftY(int y) {
+        AssemblyRotator.rotateLeftY(assembly, y);
+        final List<Cube> cubes = assembly.getLayerY(y);
+        // TODO
+    }
+
+    public void rotateRightY(int y) {
+        AssemblyRotator.rotateRightY(assembly, y);
+        final List<Cube> cubes = assembly.getLayerY(y);
+        // TODO
+    }
+
+    public void rotateLeftZ(int z) {
+        AssemblyRotator.rotateLeftZ(assembly, z);
+        final List<Cube> cubes = assembly.getLayerZ(z);
+        // TODO
+    }
+
+    public void rotateRightZ(int z) {
+        AssemblyRotator.rotateRightZ(assembly, z);
+        final List<Cube> cubes = assembly.getLayerZ(z);
+        // TODO
+    }
+
+    @Deprecated
     public void rotateLeft(AxisIndex axis, int radius) {
-        engine.rotateLeft(axis, radius);
+        engine_OLD.rotateLeft(axis, radius);
         redrawContent();
     }
 
+    @Deprecated
     public void rotateRight(AxisIndex axis, int radius) {
-        engine.rotateRight(axis, radius);
+        engine_OLD.rotateRight(axis, radius);
         redrawContent();
     }
 
@@ -76,7 +125,7 @@ public class Canvas extends JPanel {
     }
 
     private void drawPoint(Graphics2D g2, ElementPosition pos) {
-        final ColorIndex colorIndex = engine.getColors().get(pos);
+        final ColorIndex colorIndex = engine_OLD.getColors().get(pos);
         g2.setColor(getColor(colorIndex));
         final Point p = imageCoordinatesHolder.getPoints().get(pos);
         g2.fillOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
