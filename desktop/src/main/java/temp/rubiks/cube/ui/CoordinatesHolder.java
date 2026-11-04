@@ -1,6 +1,7 @@
 package temp.rubiks.cube.ui;
 
 import temp.rubiks.cube.engine.model.Assembly;
+import temp.rubiks.cube.utils.CircleIntersectionsCalculator;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -67,9 +68,9 @@ public class CoordinatesHolder {
             for (int y = -1; y <= 1; y++) {
                 final double ry = radius + y * radiusStep;
 
-                final Intersections intersections = getIntersections(cx, rx, cy, ry);
-                points.put(new CubeFacet(x, y, -1, facet1), intersections.p1());
-                points.put(new CubeFacet(x, y, 1, facet2), intersections.p2());
+                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cx, rx, cy, ry);
+                points.put(new CubeFacet(x, y, -1, facet1), intersections[0]);
+                points.put(new CubeFacet(x, y, 1, facet2), intersections[1]);
             }
         }
     }
@@ -82,9 +83,9 @@ public class CoordinatesHolder {
             for (int y = -1; y <= 1; y++) {
                 final double ry = radius + y * radiusStep;
 
-                final Intersections intersections = getIntersections(cz, rz, cy, ry);
-                points.put(new CubeFacet(-1, y, z, facet1), intersections.p1());
-                points.put(new CubeFacet(1, y, z, facet2), intersections.p2());
+                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cz, rz, cy, ry);
+                points.put(new CubeFacet(-1, y, z, facet1), intersections[0]);
+                points.put(new CubeFacet(1, y, z, facet2), intersections[1]);
             }
         }
     }
@@ -97,39 +98,14 @@ public class CoordinatesHolder {
             for (int x = -1; x <= 1; x++) {
                 final double rx = radius + x * radiusStep;
 
-                final Intersections intersections = getIntersections(cz, rz, cx, rx);
-                points.put(new CubeFacet(x, -1, z, facet1), intersections.p1());
-                points.put(new CubeFacet(x, 1, z, facet2), intersections.p2());
+                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cz, rz, cx, rx);
+                points.put(new CubeFacet(x, -1, z, facet1), intersections[0]);
+                points.put(new CubeFacet(x, 1, z, facet2), intersections[1]);
             }
         }
     }
 
-    private Intersections getIntersections(Point c1, double r1, Point c2, double r2) {
-        final double d = Math.sqrt((c1.x - c2.x) * (c1.x - c2.x) + (c1.y - c2.y) * (c1.y - c2.y));
-        final double a = (r1 * r1 - r2 * r2 + d * d) / (2 * d);
-        final double h = Math.sqrt(r1 * r1 - a * a);
-        final double ux = (c2.x - c1.x) / d;
-        final double uy = (c2.y - c1.y) / d;
-        final double px = c1.x + a * ux;
-        final double py = c1.y + a * uy;
-
-        final double xP = px - h * uy;
-        final double yP = py + h * ux;
-
-        final double xM = px + h * uy;
-        final double yM = py - h * ux;
-
-        // TODO use more precise calculations
-        return new Intersections(
-                new Point((int) xP, (int) yP),
-                new Point((int) xM, (int) yM)
-        );
-    }
-
     public record CubeFacet(int x, int y, int z, int facet) {
-    }
-
-    private record Intersections(Point p1, Point p2) {
     }
 
 }
