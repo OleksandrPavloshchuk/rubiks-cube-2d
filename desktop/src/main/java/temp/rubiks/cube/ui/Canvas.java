@@ -11,7 +11,6 @@ public class Canvas extends JPanel {
 
     private final int RADIUS = 210;
     private final int RADIUS_STEP = 35;
-    private final int POINT_RADIUS = 12;
 
     private BufferedImage image;
 
@@ -94,11 +93,8 @@ public class Canvas extends JPanel {
     }
 
     private void drawPoint(Graphics2D g2, CoordinatesHolder.CubeFacet f) {
-        g2.setColor(getColor(f.facet()));
         final Point p = coordinatesHolder.getPoints().get(f);
-        g2.fillOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
-        g2.setColor(Color.gray);
-        g2.drawOval(p.x - POINT_RADIUS, p.y - POINT_RADIUS, POINT_RADIUS * 2, POINT_RADIUS * 2);
+        new FacetDrawer(p, f.facet()).draw(g2);
 
         // TODO remove trace
         g2.setColor(Color.black);
@@ -109,16 +105,4 @@ public class Canvas extends JPanel {
     private static Point getCenter() {
         return new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2 - 60);
     }
-
-    private static Color getColor(int idx) {
-        return switch (idx) {
-            case 0 -> Color.blue;
-            case 1 -> Color.green;
-            case 2 -> Color.magenta;
-            case 3 -> Color.cyan;
-            case 4 -> Color.red;
-            default -> Color.yellow;
-        };
-    }
-
 }
