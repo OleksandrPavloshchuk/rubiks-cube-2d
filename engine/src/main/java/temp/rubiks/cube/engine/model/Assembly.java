@@ -40,6 +40,10 @@ public class Assembly {
         cubes.put(cube.getPosition(), cube);
     }
 
+    public CubeOrientation getCubeOrientation(int x, int y, int z) {
+        return cubes.get(new CubePosition(x,y,z)).getOrientation();
+    }
+
     public List<Cube> getLayerX(int x) {
         return getLayer(pos -> pos.x() == x);
     }

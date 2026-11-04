@@ -3,7 +3,7 @@ package temp.rubiks.cube.ui;
 import java.awt.*;
 
 public record FacetDrawer(Point center, int color) {
-    private static final int POINT_RADIUS = 15;
+    private static final int POINT_RADIUS = 14;
 
     public void draw(Graphics2D g2) {
         g2.setColor(getColor());
@@ -26,17 +26,17 @@ public record FacetDrawer(Point center, int color) {
 
         g2.fillPolygon(p);
         g2.setColor(Color.darkGray);
-        g2.setStroke(new BasicStroke(2));
+        g2.setStroke(new BasicStroke(1));
         g2.drawPolygon(p);
     }
 
     private Color getColor() {
         return switch (color) {
-            case 0 -> new Color(180, 255, 255);
+            case 0 -> new Color(100, 200, 200);
             case 1 -> new Color(255, 180, 255);
-            case 2 -> new Color(255, 255, 180);
+            case 2 -> new Color(255, 255, 100);
             case 3 -> new Color(100, 200, 255);
-            case 4 -> new Color(255, 100, 200);
+            case 4 -> new Color(255, 100, 100);
             default -> new Color(200, 255, 100);
         };
     }

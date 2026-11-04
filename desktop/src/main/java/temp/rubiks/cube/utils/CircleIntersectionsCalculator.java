@@ -1,7 +1,5 @@
 package temp.rubiks.cube.utils;
 
-import temp.rubiks.cube.ui.CoordinatesHolder;
-
 import java.awt.*;
 
 public class CircleIntersectionsCalculator {
