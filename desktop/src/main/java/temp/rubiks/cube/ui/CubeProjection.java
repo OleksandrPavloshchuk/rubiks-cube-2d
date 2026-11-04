@@ -1,33 +1,31 @@
 package temp.rubiks.cube.ui;
 
-import temp.rubiks.cube.model.Engine;
-
 import java.awt.*;
 import java.util.Map;
 
 public class CubeProjection implements Drawable {
 
-    private final Map<Integer, SideProjection> sides;
+    private final Map<Integer, GuidesProjection> sides;
 
     public CubeProjection(ImageCoordinatesHolder coordinatesHolder) {
-        final int TEXT_OFFSET = 20;
+        final int TEXT_OFFSET = 60;
 
-        final Point c1 = coordinatesHolder.getCenter1();
-        final Point c2 = coordinatesHolder.getCenter2();
-        final Point c3 = coordinatesHolder.getCenter3();
+        final Point cz = coordinatesHolder.getCenterZ();
+        final Point cx = coordinatesHolder.getCenterX();
+        final Point cy = coordinatesHolder.getCenterY();
 
         sides = Map.of(
                 1,
-                new SideProjection("Z", c1,
-                        new Point(c1.x, c1.y - TEXT_OFFSET),
+                new GuidesProjection("Z", cz,
+                        new Point(cz.x, cz.y - TEXT_OFFSET),
                         coordinatesHolder),
                 2,
-                new SideProjection( "Y", c2,
-                        new Point(c2.x - TEXT_OFFSET, c2.y + TEXT_OFFSET),
+                new GuidesProjection( "X", cx,
+                        new Point(cx.x - TEXT_OFFSET, cx.y + TEXT_OFFSET),
                         coordinatesHolder),
                 3,
-                new SideProjection("X", c3,
-                        new Point(c3.x + TEXT_OFFSET, c3.y + TEXT_OFFSET),
+                new GuidesProjection("Y", cy,
+                        new Point(cy.x + TEXT_OFFSET, cy.y + TEXT_OFFSET),
                         coordinatesHolder)
         );
     }

@@ -1,10 +1,8 @@
 package temp.rubiks.cube.ui;
 
-import temp.rubiks.cube.model.Engine;
-
 import java.awt.*;
 
-public class SideProjection implements Drawable {
+public class GuidesProjection implements Drawable {
 
     private static final Stroke STROKE = new BasicStroke(1);
 
@@ -14,7 +12,7 @@ public class SideProjection implements Drawable {
 
     private final ImageCoordinatesHolder coordinatesHolder;
 
-    public SideProjection(String label, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
+    public GuidesProjection(String label, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
         this.label = label;
         this.center = center;
         this.textPoint = textPoint;
@@ -30,13 +28,13 @@ public class SideProjection implements Drawable {
         g2.setColor(Color.lightGray);
         g2.setStroke(STROKE);
 
-        for( int i=0; i<ImageCoordinatesHolder.STEPS; i++ ) {
-            if (i!=1) {
+        for (int i = -1; i <= 1; i++) {
+            if (i != 0) {
                 int r = coordinatesHolder.getRadius() - i * coordinatesHolder.getRadiusStep();
                 g2.drawOval(center.x - r, center.y - r, r * 2, r * 2);
             }
         }
 
-        g2.drawString( label, textPoint.x, textPoint.y);
+        g2.drawString(label, textPoint.x, textPoint.y);
     }
 }

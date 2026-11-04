@@ -4,6 +4,9 @@ import java.util.List;
 
 import static temp.rubiks.cube.model.AxisIndex.*;
 
+/**
+ * TODO convert it to the new assembly
+ */
 public class OrderHolder {
 
     public static List<ElementPosition> getOrder(AxisIndex axis, int radius) {
