@@ -3,7 +3,6 @@ package temp.rubiks.cube.ui;
 import temp.rubiks.cube.engine.model.Assembly;
 import temp.rubiks.cube.engine.model.Cube;
 import temp.rubiks.cube.engine.rotators.AssemblyRotator;
-import temp.rubiks.cube.model.ColorIndex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,18 +126,6 @@ public class Canvas extends JPanel {
 
     private static Point getCenter() {
         return new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2);
-    }
-
-    @Deprecated
-    private static Color getColor(ColorIndex idx) {
-        return switch (idx) {
-            case C1 -> Color.blue;
-            case C2 -> Color.green;
-            case C3 -> Color.magenta;
-            case C4 -> Color.cyan;
-            case C5 -> Color.red;
-            case C6 -> Color.yellow;
-        };
     }
 
     private static Color getColor(int idx) {

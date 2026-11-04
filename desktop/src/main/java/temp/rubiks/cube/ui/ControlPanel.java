@@ -1,14 +1,12 @@
 package temp.rubiks.cube.ui;
 
-import temp.rubiks.cube.model.AxisIndex;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class ControlPanel extends JPanel {
 
     public ControlPanel(Canvas canvas) {
-        setLayout(new GridLayout(AxisIndex.values().length, 2 * ImageCoordinatesHolder.STEPS));
+        setLayout(new GridLayout(3, 6));
 
         JButton button = new JButton("X" + "left" + ":" + -1);
         button.addActionListener(event -> canvas.rotateLeftX(-1));

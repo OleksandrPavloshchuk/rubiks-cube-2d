@@ -6,8 +6,6 @@ import java.util.Map;
 
 public class ImageCoordinatesHolder {
 
-    public static final int STEPS = 3;
-
     private static final double SIN60 = Math.sqrt(3) / 2.0;
 
     private final Point center;
