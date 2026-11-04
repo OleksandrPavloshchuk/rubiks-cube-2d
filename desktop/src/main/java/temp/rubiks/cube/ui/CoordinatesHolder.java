@@ -1,10 +1,12 @@
 package temp.rubiks.cube.ui;
 
+import temp.rubiks.cube.engine.model.Assembly;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImageCoordinatesHolder {
+public class CoordinatesHolder {
 
     private static final double SIN60 = Math.sqrt(3) / 2.0;
 
@@ -14,7 +16,7 @@ public class ImageCoordinatesHolder {
 
     private final Map<CubeFacet, Point> points = new HashMap<>();
 
-    public ImageCoordinatesHolder(Point center, int radius, int radiusStep) {
+    public CoordinatesHolder(Point center, int radius, int radiusStep) {
         this.center = center;
         this.radius = radius;
         this.radiusStep = radiusStep;
@@ -46,6 +48,11 @@ public class ImageCoordinatesHolder {
         return new Point(center.x + radius / 2, (int) (center.y + radius * (SIN60 - 0.5)));
     }
 
+    public void projectAssembly(Assembly assembly) {
+        // TODO implement this
+    }
+
+    @Deprecated
     public void reset() {
         resetZ(0, 3);
         resetX(1, 4);

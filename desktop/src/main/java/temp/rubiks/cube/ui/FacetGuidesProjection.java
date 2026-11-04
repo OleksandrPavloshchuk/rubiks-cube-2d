@@ -2,7 +2,7 @@ package temp.rubiks.cube.ui;
 
 import java.awt.*;
 
-public class GuidesProjection implements Drawable {
+public class FacetGuidesProjection implements Drawable {
 
     private static final Stroke STROKE = new BasicStroke(1);
 
@@ -10,9 +10,9 @@ public class GuidesProjection implements Drawable {
     private final Point textPoint;
     private final String label;
 
-    private final ImageCoordinatesHolder coordinatesHolder;
+    private final CoordinatesHolder coordinatesHolder;
 
-    public GuidesProjection(String label, Point center, Point textPoint, ImageCoordinatesHolder coordinatesHolder) {
+    public FacetGuidesProjection(String label, Point center, Point textPoint, CoordinatesHolder coordinatesHolder) {
         this.label = label;
         this.center = center;
         this.textPoint = textPoint;

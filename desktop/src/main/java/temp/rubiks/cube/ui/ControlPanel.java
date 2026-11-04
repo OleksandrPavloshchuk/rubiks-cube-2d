@@ -2,60 +2,49 @@ package temp.rubiks.cube.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.BiConsumer;
 
 public class ControlPanel extends JPanel {
 
     public ControlPanel(Canvas canvas) {
         setLayout(new GridLayout(3, 6));
 
-        JButton button = new JButton("X" + "left" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateLeftX(-1));
-        add(button);
+        for (final Axis axis : Axis.values()) {
+            for( final Offset offset: Offset.values()) {
+                add(createButton(canvas, axis, offset, "left", axis.rotateLeft));
+                add(createButton(canvas, axis, offset, "right", axis.rotateRight));
+            }
+        }
+    }
 
-        button = new JButton("X" + "right" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateRightX(-1));
-        add(button);
+    private JButton createButton(Canvas canvas, Axis axis, Offset offset, String label, BiConsumer<Canvas, Integer> rotate) {
+        final JButton result = new JButton(axis.name() + " " + label + ":" + offset.val);
+        result.addActionListener(event -> rotate.accept(canvas, offset.val));
+        return result;
+    }
 
-        button = new JButton("X" + " " + "letf" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateLeftX(1));
-        add(button);
+    private enum Axis {
+        X(Canvas::rotateLeftX, Canvas::rotateRightX),
+        Y(Canvas::rotateLeftY, Canvas::rotateRightY),
+        Z(Canvas::rotateLeftZ, Canvas::rotateRightZ);
 
-        button = new JButton("X" + " " + "right" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateRightX(1));
-        add(button);
+        private final BiConsumer<Canvas, Integer> rotateLeft;
+        private final BiConsumer<Canvas, Integer> rotateRight;
 
-        button = new JButton("Y" + " " + "left" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateLeftY(-1));
-        add(button);
+        Axis(BiConsumer<Canvas, Integer> rotateLeft, BiConsumer<Canvas, Integer> rotateRight) {
+            this.rotateLeft = rotateLeft;
+            this.rotateRight = rotateRight;
+        }
+    }
 
-        button = new JButton("Y" + " " + "right" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateRightY(-1));
-        add(button);
+    private enum Offset {
+        Low(-1), High(1);
 
-        button = new JButton("Y" + " " + "left" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateLeftY(1));
-        add(button);
+        private final int val;
 
-        button = new JButton("Y" + " " + "right" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateRightY(1));
-        add(button);
-
-        button = new JButton("Z" + " " + "left" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateLeftZ(-1));
-        add(button);
-
-        button = new JButton("Z" + " " + "right" + ":" + -1);
-        button.addActionListener(event -> canvas.rotateRightZ(-1));
-        add(button);
-
-        button = new JButton("Z" + " " + "left" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateLeftZ(1));
-        add(button);
-
-        button = new JButton("Z" + "right" + ":" + 1);
-        button.addActionListener(event -> canvas.rotateRightZ(1));
-        add(button);
-
+        Offset(int val) {
+            this.val = val;
+        }
     }
 
 }
