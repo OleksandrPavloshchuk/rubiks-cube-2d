@@ -4,6 +4,7 @@ import temp.rubiks.cube.engine.model.Cube;
 import temp.rubiks.cube.engine.model.CubeOrientation;
 import temp.rubiks.cube.engine.model.CubePosition;
 import temp.rubiks.cube.engine.rotators.CubeOrientationRotator;
+import temp.rubiks.cube.single.projections.CubeProjection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,19 +12,11 @@ import java.awt.image.BufferedImage;
 
 public class Canvas extends JPanel {
 
-    private final int RADIUS = 210;
-    private final int RADIUS_STEP = 35;
-
     private BufferedImage image;
-
-    private final CoordinatesHolder coordinatesHolder =
-            new CoordinatesHolder(getCenter(), RADIUS, RADIUS_STEP);
 
     private final Cube cube = new Cube(
         new CubePosition(-1, -1, -1)
     );
-
-    private final Drawable guidesProjection = new CubeGuidesProjection(coordinatesHolder);
 
     public Canvas() {
         refresh();
@@ -70,15 +63,7 @@ public class Canvas extends JPanel {
 
     public void rotateLeftZ() {
         CubeOrientation orientation = cube.getOrientation();
-
-        // TODO remove trace
-        System.out.println("before: " + orientation);
-
         orientation = CubeOrientationRotator.leftZ(orientation);
-
-        // TODO remove trace
-        System.out.println("after: " + orientation);
-
         cube.setOrientation(orientation);
         redrawContent();
     }
@@ -91,15 +76,13 @@ public class Canvas extends JPanel {
     }
 
     private void redrawContent() {
-        coordinatesHolder.projectCube(cube);
 
         image = new BufferedImage(MainWindow.WIDTH, MainWindow.HEIGHT,
                 BufferedImage.TYPE_INT_RGB);
         final Graphics2D g2 = image.createGraphics();
         try {
             drawBackground(g2);
-            guidesProjection.draw(g2);
-            drawPoints(g2);
+            drawCube(g2);
         } finally {
             g2.dispose();
         }
@@ -111,13 +94,12 @@ public class Canvas extends JPanel {
         g2.fillRect(0, 0, image.getWidth(), image.getHeight());
     }
 
-    private void drawPoints(Graphics2D g2) {
-        coordinatesHolder.getPoints().keySet().forEach(
-                f -> new FacetDrawer(coordinatesHolder.getPoints().get(f), f.facet()).draw(g2)
-        );
+    private void drawCube(Graphics2D g2) {
+        new CubeProjection(
+                new Point (160, 50),
+                cube,
+                160
+        ).draw(g2);
     }
 
-    private static Point getCenter() {
-        return new Point(MainWindow.WIDTH / 2, MainWindow.HEIGHT / 2 - 60);
-    }
 }
