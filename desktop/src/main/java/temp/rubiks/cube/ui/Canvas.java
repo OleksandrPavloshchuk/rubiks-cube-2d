@@ -89,17 +89,9 @@ public class Canvas extends JPanel {
     }
 
     private void drawPoints(Graphics2D g2) {
-        coordinatesHolder.getPoints().keySet().forEach(f -> drawPoint(g2, f));
-    }
-
-    private void drawPoint(Graphics2D g2, CoordinatesHolder.CubeFacet f) {
-        final Point p = coordinatesHolder.getPoints().get(f);
-        new FacetDrawer(p, f.facet()).draw(g2);
-
-        // TODO remove trace
-        g2.setColor(Color.black);
-        final String str = "" + f.x() + "," + f.y() + "," + f.z();
-        g2.drawString(str, p.x, p.y );
+        coordinatesHolder.getPoints().keySet().forEach(
+                f -> new FacetDrawer(coordinatesHolder.getPoints().get(f), f.facet()).draw(g2)
+        );
     }
 
     private static Point getCenter() {

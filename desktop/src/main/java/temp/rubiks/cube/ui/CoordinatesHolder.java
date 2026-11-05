@@ -50,28 +50,11 @@ public class CoordinatesHolder {
 
     public void projectAssembly(Assembly assembly) {
         projectAssemblyX(assembly);
+        projectAssemblyY(assembly);
         projectAssemblyZ(assembly);
-        // TODO implement this
     }
 
-    public void projectAssemblyZ(Assembly assembly) {
-        final Point cx = getCenterX();
-        final Point cy = getCenterY();
-        for (int x = -1; x <= 1; x++) {
-            final double rx = radius + x * radiusStep;
-            for (int y = -1; y <= 1; y++) {
-                final double ry = radius + y * radiusStep;
-                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cx, rx, cy, ry);
-
-                CubeOrientation orientation = assembly.getCubeOrientation(x, y, -1);
-                points.put(new CubeFacet(x, y, -1, orientation.z0()), intersections[0]);
-                orientation = assembly.getCubeOrientation(x, y, 1);
-                points.put(new CubeFacet(x, y, 1, orientation.z1()), intersections[1]);
-            }
-        }
-    }
-
-    public void projectAssemblyX(Assembly assembly) {
+    private void projectAssemblyX(Assembly assembly) {
         final Point cz = getCenterZ();
         final Point cy = getCenterY();
         for (int z = -1; z <= 1; z++) {
@@ -88,58 +71,36 @@ public class CoordinatesHolder {
         }
     }
 
-
-    @Deprecated
-    public void reset() {
-        resetZ(0, 3);
-        resetX(1, 4);
-        resetY(2, 5);
-    }
-
-    @Deprecated
-    public void resetZ(int facet1, int facet2) {
-        final Point cx = getCenterX();
-        final Point cy = getCenterY();
-        for (int x = -1; x <= 1; x++) {
-            final double rx = radius + x * radiusStep;
-            for (int y = -1; y <= 1; y++) {
-                final double ry = radius + y * radiusStep;
-
-                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cx, rx, cy, ry);
-                points.put(new CubeFacet(x, y, -1, facet1), intersections[0]);
-                points.put(new CubeFacet(x, y, 1, facet2), intersections[1]);
-            }
-        }
-    }
-
-    @Deprecated
-    public void resetX(int facet1, int facet2) {
-        final Point cz = getCenterZ();
-        final Point cy = getCenterY();
-        for (int z = -1; z <= 1; z++) {
-            final double rz = radius + z * radiusStep;
-            for (int y = -1; y <= 1; y++) {
-                final double ry = radius + y * radiusStep;
-
-                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cz, rz, cy, ry);
-                points.put(new CubeFacet(-1, y, z, facet1), intersections[0]);
-                points.put(new CubeFacet(1, y, z, facet2), intersections[1]);
-            }
-        }
-    }
-
-    @Deprecated
-    public void resetY(int facet1, int facet2) {
+    private void projectAssemblyY(Assembly assembly) {
         final Point cz = getCenterZ();
         final Point cx = getCenterX();
         for (int z = -1; z <= 1; z++) {
             final double rz = radius + z * radiusStep;
             for (int x = -1; x <= 1; x++) {
                 final double rx = radius + x * radiusStep;
-
                 final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cz, rz, cx, rx);
-                points.put(new CubeFacet(x, -1, z, facet1), intersections[0]);
-                points.put(new CubeFacet(x, 1, z, facet2), intersections[1]);
+
+                CubeOrientation orientation = assembly.getCubeOrientation(x, -1, z);
+                points.put(new CubeFacet(x, -1, z, orientation.y0()), intersections[0]);
+                orientation = assembly.getCubeOrientation(x, 1, z);
+                points.put(new CubeFacet(x, 1, z, orientation.y1()), intersections[1]);
+            }
+        }
+    }
+
+    private void projectAssemblyZ(Assembly assembly) {
+        final Point cx = getCenterX();
+        final Point cy = getCenterY();
+        for (int x = -1; x <= 1; x++) {
+            final double rx = radius + x * radiusStep;
+            for (int y = -1; y <= 1; y++) {
+                final double ry = radius + y * radiusStep;
+                final Point[] intersections = CircleIntersectionsCalculator.getIntersections(cx, rx, cy, ry);
+
+                CubeOrientation orientation = assembly.getCubeOrientation(x, y, -1);
+                points.put(new CubeFacet(x, y, -1, orientation.z0()), intersections[0]);
+                orientation = assembly.getCubeOrientation(x, y, 1);
+                points.put(new CubeFacet(x, y, 1, orientation.z1()), intersections[1]);
             }
         }
     }
