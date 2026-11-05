@@ -1,7 +1,5 @@
 package temp.rubiks.cube.single.projections;
 
-import temp.rubiks.cube.single.ui.Drawable;
-
 import java.awt.*;
 
 public class FacetCellProjection implements Drawable {

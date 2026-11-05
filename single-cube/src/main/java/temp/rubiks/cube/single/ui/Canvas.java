@@ -79,7 +79,7 @@ public class Canvas extends JPanel {
     }
 
     private void drawAssembly(Graphics2D g2) {
-        new AssemblyProjection(new Point (160, 50), 50, assembly).draw(g2);
+        new AssemblyProjection(new Point (160, 100), 50, assembly).draw(g2);
     }
 
 }

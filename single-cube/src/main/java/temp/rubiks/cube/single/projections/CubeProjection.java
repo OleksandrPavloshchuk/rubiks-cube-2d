@@ -1,7 +1,6 @@
 package temp.rubiks.cube.single.projections;
 
 import temp.rubiks.cube.engine.model.Cube;
-import temp.rubiks.cube.single.ui.Drawable;
 
 import java.awt.*;
 

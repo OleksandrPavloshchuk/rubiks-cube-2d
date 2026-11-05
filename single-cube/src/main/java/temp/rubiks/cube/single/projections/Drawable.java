@@ -1,4 +1,4 @@
-package temp.rubiks.cube.single.ui;
+package temp.rubiks.cube.single.projections;
 
 import java.awt.*;
 
