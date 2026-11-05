@@ -2,4 +2,5 @@ rootProject.name = 'rubiks-cube-2d'
 
 include 'engine'
 include 'desktop'
+include 'single-cube'
 
