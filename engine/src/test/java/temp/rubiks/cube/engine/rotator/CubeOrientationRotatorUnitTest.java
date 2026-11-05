@@ -8,7 +8,7 @@ import temp.rubiks.cube.engine.rotators.CubeOrientationRotator;
 import java.util.function.Function;
 
 public class CubeOrientationRotatorUnitTest {
-
+    
     @Test
     void doAndUndo() {
         doAndUndo(CubeOrientationRotator::leftX, CubeOrientationRotator::rightX);

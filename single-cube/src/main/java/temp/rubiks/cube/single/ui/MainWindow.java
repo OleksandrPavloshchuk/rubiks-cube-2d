@@ -11,7 +11,7 @@ public class MainWindow extends JFrame {
     private final Canvas canvas = new Canvas();
 
     public MainWindow() {
-        super("Rubiks Cube 2D (v2)");
+        super("SINGLE CUBE (test)");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
 

@@ -2,24 +2,22 @@ package temp.rubiks.cube.single.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class ControlPanel extends JPanel {
 
     public ControlPanel(Canvas canvas) {
-        setLayout(new GridLayout(3, 6));
+        setLayout(new GridLayout(3, 2));
 
         for (final Axis axis : Axis.values()) {
-            for( final Offset offset: Offset.values()) {
-                add(createButton(canvas, axis, offset, "left", axis.rotateLeft));
-                add(createButton(canvas, axis, offset, "right", axis.rotateRight));
-            }
+                add(createButton(canvas, axis, "left", axis.rotateLeft));
+                add(createButton(canvas, axis, "right", axis.rotateRight));
         }
     }
 
-    private JButton createButton(Canvas canvas, Axis axis, Offset offset, String label, BiConsumer<Canvas, Integer> rotate) {
-        final JButton result = new JButton(axis.name() + " " + label + ":" + offset.val);
-        result.addActionListener(event -> rotate.accept(canvas, offset.val));
+    private JButton createButton(Canvas canvas, Axis axis, String label, Consumer<Canvas> rotate) {
+        final JButton result = new JButton(axis.name() + " " + label);
+        result.addActionListener(event -> rotate.accept(canvas));
         return result;
     }
 
@@ -28,22 +26,12 @@ public class ControlPanel extends JPanel {
         Y(Canvas::rotateLeftY, Canvas::rotateRightY),
         Z(Canvas::rotateLeftZ, Canvas::rotateRightZ);
 
-        private final BiConsumer<Canvas, Integer> rotateLeft;
-        private final BiConsumer<Canvas, Integer> rotateRight;
+        private final Consumer<Canvas> rotateLeft;
+        private final Consumer<Canvas> rotateRight;
 
-        Axis(BiConsumer<Canvas, Integer> rotateLeft, BiConsumer<Canvas, Integer> rotateRight) {
+        Axis(Consumer<Canvas> rotateLeft, Consumer<Canvas> rotateRight) {
             this.rotateLeft = rotateLeft;
             this.rotateRight = rotateRight;
-        }
-    }
-
-    private enum Offset {
-        Low(-1), High(1);
-
-        private final int val;
-
-        Offset(int val) {
-            this.val = val;
         }
     }
 

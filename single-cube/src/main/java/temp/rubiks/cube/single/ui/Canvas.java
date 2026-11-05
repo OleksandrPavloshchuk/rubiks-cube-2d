@@ -1,7 +1,9 @@
 package temp.rubiks.cube.single.ui;
 
-import temp.rubiks.cube.engine.model.Assembly;
-import temp.rubiks.cube.engine.rotators.AssemblyRotator;
+import temp.rubiks.cube.engine.model.Cube;
+import temp.rubiks.cube.engine.model.CubeOrientation;
+import temp.rubiks.cube.engine.model.CubePosition;
+import temp.rubiks.cube.engine.rotators.CubeOrientationRotator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +19,9 @@ public class Canvas extends JPanel {
     private final CoordinatesHolder coordinatesHolder =
             new CoordinatesHolder(getCenter(), RADIUS, RADIUS_STEP);
 
-    private final Assembly assembly = new Assembly();
+    private final Cube cube = new Cube(
+        new CubePosition(-1, -1, -1)
+    );
 
     private final Drawable guidesProjection = new CubeGuidesProjection(coordinatesHolder);
 
@@ -28,47 +32,66 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         g.drawImage(image, 0, 0, this);
     }
 
     public void refresh() {
-        assembly.reset();
+        cube.setOrientation(new CubeOrientation(0, 1, 2, 3, 4, 5));
         redrawContent();
     }
 
-    public void rotateLeftX(int x) {
-        AssemblyRotator.rotateLeftX(assembly, x);
+    public void rotateLeftX() {
+        CubeOrientation orientation = cube.getOrientation();
+        orientation = CubeOrientationRotator.leftX(orientation);
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
-    public void rotateRightX(int x) {
-        AssemblyRotator.rotateRightX(assembly, x);
+    public void rotateRightX() {
+        CubeOrientation orientation = cube.getOrientation();
+        orientation = CubeOrientationRotator.rightX(orientation);
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
-    public void rotateLeftY(int y) {
-        AssemblyRotator.rotateLeftY(assembly, y);
+    public void rotateLeftY() {
+        CubeOrientation orientation = cube.getOrientation();
+        orientation = CubeOrientationRotator.leftY(orientation);
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
-    public void rotateRightY(int y) {
-        AssemblyRotator.rotateRightY(assembly, y);
+    public void rotateRightY() {
+        CubeOrientation orientation = cube.getOrientation();
+        orientation = CubeOrientationRotator.rightY(orientation);
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
-    public void rotateLeftZ(int z) {
-        AssemblyRotator.rotateLeftZ(assembly, z);
+    public void rotateLeftZ() {
+        CubeOrientation orientation = cube.getOrientation();
+
+        // TODO remove trace
+        System.out.println("before: " + orientation);
+
+        orientation = CubeOrientationRotator.leftZ(orientation);
+
+        // TODO remove trace
+        System.out.println("after: " + orientation);
+
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
-    public void rotateRightZ(int z) {
-        AssemblyRotator.rotateRightZ(assembly, z);
+    public void rotateRightZ() {
+        CubeOrientation orientation = cube.getOrientation();
+        orientation = CubeOrientationRotator.rightZ(orientation);
+        cube.setOrientation(orientation);
         redrawContent();
     }
 
     private void redrawContent() {
-        coordinatesHolder.projectAssembly(assembly);
+        coordinatesHolder.projectCube(cube);
 
         image = new BufferedImage(MainWindow.WIDTH, MainWindow.HEIGHT,
                 BufferedImage.TYPE_INT_RGB);
