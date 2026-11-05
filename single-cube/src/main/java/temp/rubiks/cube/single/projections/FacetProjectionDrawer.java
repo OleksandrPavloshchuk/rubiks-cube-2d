@@ -13,4 +13,5 @@ public interface FacetProjectionDrawer {
             int cellSize,
             Map<CubePosition, Cube> cubes
     );
+    Point translateToPane(int x, int y);
 }

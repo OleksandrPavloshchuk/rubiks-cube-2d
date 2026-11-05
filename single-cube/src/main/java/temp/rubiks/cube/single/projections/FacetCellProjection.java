@@ -30,8 +30,8 @@ public class FacetCellProjection implements Drawable {
         g2.drawRect(leftTopCorner.x, leftTopCorner.y, size, size);
 
         // TODO remove trace
-        //g2.setColor(Color.darkGray);
-        // g2.drawString("" + color, leftTopCorner.x + 20, leftTopCorner.y + 20);
+        g2.setColor(Color.darkGray);
+        g2.drawString("" + color, leftTopCorner.x + 20, leftTopCorner.y + 20);
     }
 
     private Color getColor() {
