@@ -2,22 +2,25 @@ package temp.rubiks.cube.single.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ControlPanel extends JPanel {
 
     public ControlPanel(Canvas canvas) {
-        setLayout(new GridLayout(3, 2));
+        setLayout(new GridLayout(3, 4));
 
         for (final Axis axis : Axis.values()) {
-                add(createButton(canvas, axis, "left", axis.rotateLeft));
-                add(createButton(canvas, axis, "right", axis.rotateRight));
+                add(createButton(canvas, axis, "left", -1, axis.rotateLeft));
+                add(createButton(canvas, axis, "right", -1, axis.rotateRight));
+            add(createButton(canvas, axis, "left", 1, axis.rotateLeft));
+            add(createButton(canvas, axis, "right", 1, axis.rotateRight));
         }
     }
 
-    private JButton createButton(Canvas canvas, Axis axis, String label, Consumer<Canvas> rotate) {
-        final JButton result = new JButton(axis.name() + " " + label);
-        result.addActionListener(event -> rotate.accept(canvas));
+    private JButton createButton(Canvas canvas, Axis axis, String label, int i, BiConsumer<Canvas, Integer> rotate) {
+        final JButton result = new JButton(axis.name() + " " + label + ": " + i);
+        result.addActionListener(event -> rotate.accept(canvas, i));
         return result;
     }
 
@@ -26,10 +29,10 @@ public class ControlPanel extends JPanel {
         Y(Canvas::rotateLeftY, Canvas::rotateRightY),
         Z(Canvas::rotateLeftZ, Canvas::rotateRightZ);
 
-        private final Consumer<Canvas> rotateLeft;
-        private final Consumer<Canvas> rotateRight;
+        private final BiConsumer<Canvas, Integer> rotateLeft;
+        private final BiConsumer<Canvas, Integer> rotateRight;
 
-        Axis(Consumer<Canvas> rotateLeft, Consumer<Canvas> rotateRight) {
+        Axis(BiConsumer<Canvas, Integer> rotateLeft, BiConsumer<Canvas, Integer> rotateRight) {
             this.rotateLeft = rotateLeft;
             this.rotateRight = rotateRight;
         }

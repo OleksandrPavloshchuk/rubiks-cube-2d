@@ -14,21 +14,21 @@ public record CubeProjection(
     @Override
     public void draw(Graphics2D g2) {
         Point p = new Point( leftTopCorner.x, leftTopCorner.y + facetSize);
-        new FacetProjection(p, cube.getOrientation().x0(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().x0(), facetSize).draw(g2);
 
         p = new Point( leftTopCorner.x + facetSize, leftTopCorner.y + 2 * facetSize);
-        new FacetProjection(p, cube.getOrientation().y0(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().y0(), facetSize).draw(g2);
 
         p = new Point( leftTopCorner.x + facetSize, leftTopCorner.y + 3 * facetSize);
-        new FacetProjection(p, cube.getOrientation().z0(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().z0(), facetSize).draw(g2);
 
         p = new Point( leftTopCorner.x + 2 * facetSize, leftTopCorner.y + facetSize);
-        new FacetProjection(p, cube.getOrientation().x1(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().x1(), facetSize).draw(g2);
 
         p = new Point( leftTopCorner.x + facetSize, leftTopCorner.y);
-        new FacetProjection(p, cube.getOrientation().y1(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().y1(), facetSize).draw(g2);
 
         p = new Point( leftTopCorner.x + facetSize, leftTopCorner.y + facetSize);
-        new FacetProjection(p, cube.getOrientation().z1(), facetSize).draw(g2);
+        new FacetCellProjection(p, cube.getOrientation().z1(), facetSize).draw(g2);
     }
 }

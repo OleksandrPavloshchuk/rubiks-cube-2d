@@ -24,6 +24,10 @@ public class Assembly {
         }
     }
 
+    public Map<CubePosition, Cube> getCubes() {
+        return cubes;
+    }
+
     public List<Cube> getLayerForUpdateX(int x) {
         return getLayerForUpdate(pos -> pos.x() == x);
     }
@@ -42,18 +46,6 @@ public class Assembly {
 
     public CubeOrientation getCubeOrientation(int x, int y, int z) {
         return cubes.get(new CubePosition(x,y,z)).getOrientation();
-    }
-
-    public List<Cube> getLayerX(int x) {
-        return getLayer(pos -> pos.x() == x);
-    }
-
-    public List<Cube> getLayerY(int y) {
-        return getLayer(pos -> pos.y() == y);
-    }
-
-    public List<Cube> getLayerZ(int z) {
-        return getLayer(pos -> pos.z() == z);
     }
 
     private List<Cube> getLayer(Predicate<CubePosition> positionPredicate) {
